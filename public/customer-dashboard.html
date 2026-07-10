@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Kashmir Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind-config.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen">
+    <!-- Top navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-slate-200/80">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <span class="font-bold text-slate-900">Kashmir Events</span>
+                </a>
+                <div class="flex items-center gap-3">
+                    <span class="hidden sm:inline text-sm text-slate-500">Welcome, <strong id="userName" class="text-slate-700">User</strong></span>
+                    <button onclick="logout()" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors">Sign Out</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Page header -->
+            <div class="mb-8">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-1">My Dashboard</h1>
+                <p class="text-slate-500">Browse events and manage your bookings</p>
+            </div>
+
+            <!-- Available Events -->
+            <section class="mb-10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <h2 class="text-lg font-bold text-slate-900">Available Events</h2>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="eventSearch" placeholder="Search events..." onkeyup="searchEvents()"
+                            class="input-field sm:w-56 py-2 text-sm">
+                        <select id="eventSort" onchange="sortEvents()"
+                            class="input-field sm:w-44 py-2 text-sm cursor-pointer">
+                            <option value="date">Sort by Date</option>
+                            <option value="title">Sort by Title</option>
+                            <option value="seats">Sort by Seats</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="availableEvents" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </section>
+
+            <!-- My Bookings -->
+            <section>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <h2 class="text-lg font-bold text-slate-900">My Bookings</h2>
+                    <select id="bookingFilter" onchange="filterBookings()"
+                        class="input-field sm:w-44 py-2 text-sm cursor-pointer">
+                        <option value="all">All Bookings</option>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="past">Past</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div id="myBookings" class="space-y-4"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Book Event Modal -->
+    <div id="bookEventModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Book Event</h3>
+                <button type="button" class="close" onclick="closeBookModal()" aria-label="Close">&times;</button>
+            </div>
+            <div id="eventDetails" class="mb-4 text-sm text-slate-600 space-y-1"></div>
+            <form id="bookEventForm">
+                <input type="hidden" id="bookEventId">
+                <div class="form-group">
+                    <label for="numberOfSeats">Number of Seats</label>
+                    <input type="number" id="numberOfSeats" name="numberOfSeats" min="1" required>
+                    <small id="availableSeatsInfo"></small>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="closeBookModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Confirm Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Booking Modal -->
+    <div id="viewBookingModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Booking Details</h3>
+                <button type="button" class="close" onclick="closeViewBookingModal()" aria-label="Close">&times;</button>
+            </div>
+            <div id="bookingDetails" class="mb-4 text-sm text-slate-600 space-y-1"></div>
+            <div class="form-buttons">
+                <button type="button" class="btn btn-secondary" onclick="closeViewBookingModal()">Close</button>
+                <button id="cancelBookingBtn" class="btn btn-danger" onclick="cancelBooking()">Cancel Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="customer-dashboard.js"></script>
+</body>
+</html>

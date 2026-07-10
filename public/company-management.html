@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Management — Kashmir Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind-config.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen">
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-slate-200/80">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <span class="font-bold text-slate-900">Kashmir Events</span>
+                </a>
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-colors">Home</a>
+                    <a href="login.html" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-colors">Sign In</a>
+                    <a href="admin-login.html" class="px-3 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-colors">Admin</a>
+                </div>
+                <button id="hamburger" class="md:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors" aria-label="Toggle menu" aria-expanded="false">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-slate-100 pt-3">
+                <div class="flex flex-col gap-1">
+                    <a href="index.html" class="px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-brand-50 rounded-lg">Home</a>
+                    <a href="login.html" class="px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-brand-50 rounded-lg">Sign In</a>
+                    <a href="admin-login.html" class="px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-brand-50 rounded-lg">Admin</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-16 pb-12">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center mb-8">
+                <span class="inline-block px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-semibold uppercase tracking-wider mb-4">Management</span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">Company Management</h1>
+                <p class="text-slate-500">Add and manage companies for admin access control</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-card p-6 lg:p-8 mb-8">
+                <h2 class="text-lg font-bold text-slate-900 mb-6">Add New Company</h2>
+                <form id="companyForm" class="space-y-4">
+                    <div class="form-group">
+                        <label for="companyName">Company Name</label>
+                        <input type="text" id="companyName" name="companyName" required placeholder="Acme Events Inc." class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailDomain">Email Domain</label>
+                        <input type="text" id="emailDomain" name="emailDomain" required placeholder="acme.com" class="input-field">
+                        <small>Employees with @acme.com email will be associated with this company</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="companyKey">Company Key</label>
+                        <input type="text" id="companyKey" name="companyKey" required placeholder="ACME2026KEY" class="input-field">
+                        <small>Share this key with company employees for admin access</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxAdmins">Maximum Admins</label>
+                        <input type="number" id="maxAdmins" name="maxAdmins" required min="1" max="100" value="10" class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Contact Email</label>
+                        <input type="email" id="contactEmail" name="contactEmail" required placeholder="admin@acme.com" class="input-field">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description <span class="font-normal text-slate-400">(optional)</span></label>
+                        <textarea id="description" name="description" rows="3" placeholder="Brief description..." class="input-field"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full sm:w-auto">Add Company</button>
+                </form>
+                <div id="message" class="mt-5 hidden"></div>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-card p-6 lg:p-8">
+                <h2 class="text-lg font-bold text-slate-900 mb-6">Registered Companies</h2>
+                <div id="companiesList" class="space-y-4"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="company-management.js"></script>
+</body>
+</html>
